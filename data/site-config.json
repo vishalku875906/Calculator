@@ -1,7 +1,7 @@
 {
   "siteName": "Calculator Pro",
-  "baseUrl": "https://calculatorproai.com",
+  "baseUrl": "http://digitalprojectpro.ggff.net",
   "defaultLanguage": "en",
-  "gaMeasurementId": "G-XXXXXXX",
+  "gaMeasurementId": "",
   "proEnabled": false
 }

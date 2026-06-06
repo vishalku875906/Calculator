@@ -53,6 +53,160 @@
   attachSearch('globalSearch', 'searchSuggestions');
   attachSearch('heroSearch', 'heroSuggestions');
 
+  document.addEventListener('submit', function (event) {
+    var form = event.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var input = form.querySelector('input[type=search]');
+    if (!input || !input.value.trim()) return;
+    if (form.action.indexOf('/search.html') === -1) {
+      event.preventDefault();
+      location.href = '/search.html?q=' + encodeURIComponent(input.value.trim());
+    }
+  });
+
+  function formatToolCard(item) {
+    return '<article class="tool-card"><a href="' + item.url + '"><h2>' + item.name + '</h2><p>' + item.category + '</p></a></article>';
+  }
+
+  function renderSearchResults() {
+    var container = qs('#searchResults');
+    var summary = qs('.search-summary');
+    if (!container || !summary) return;
+    var params = new URLSearchParams(location.search);
+    var query = (params.get('q') || '').trim();
+    if (!query) {
+      summary.textContent = 'Enter a search term above to find calculators and tools.';
+      container.innerHTML = '';
+      return;
+    }
+    var terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+    var results = (window.CALC_SEARCH_DATA || []).filter(function (item) {
+      var hay = (item.name + ' ' + item.category).toLowerCase();
+      return terms.every(function (term) { return hay.indexOf(term) !== -1; });
+    });
+    if (!results.length) {
+      summary.textContent = 'No calculators matched "' + query + '". Try shorter keywords like "BMI", "loan" or "interest".';
+      container.innerHTML = '<div class="empty-state">No results found for "' + query + '".</div>';
+      return;
+    }
+    summary.innerHTML = '<strong>' + results.length + ' results for "' + query + '"</strong>';
+    container.innerHTML = results.slice(0, 50).map(formatToolCard).join('');
+  }
+
+  function fillCategoryJump() {
+    var sel = document.getElementById('categoryJump');
+    if (!sel || !window.CALC_SEARCH_DATA) return;
+    var categories = Array.from(new Set(window.CALC_SEARCH_DATA.map(function (item) { return item.category; }))).sort();
+    sel.innerHTML = '<option value="">Categories</option>' + categories.map(function (cat) {
+      return '<option value="/search.html?q=' + encodeURIComponent(cat) + '">' + cat + '</option>';
+    }).join('');
+  }
+
+  var PAGE_THEME_MAP = {
+    finance: { class: 'theme-finance', label: 'Finance', icon: '💰' },
+    health: { class: 'theme-health', label: 'Health', icon: '❤️' },
+    math: { class: 'theme-math', label: 'Math', icon: '∑' },
+    geometry: { class: 'theme-chemistry', label: 'Geometry', icon: '📐' },
+    physics: { class: 'theme-physics', label: 'Physics', icon: '⚛️' },
+    chemistry: { class: 'theme-chemistry', label: 'Chemistry', icon: '🧪' },
+    construction: { class: 'theme-construction', label: 'Construction', icon: '🏗️' },
+    food: { class: 'theme-food', label: 'Food', icon: '🍽️' },
+    education: { class: 'theme-education', label: 'Education', icon: '🎓' },
+    automotive: { class: 'theme-automotive', label: 'Automotive', icon: '🚗' },
+    converter: { class: 'theme-converter', label: 'Converter', icon: '🔄' },
+    date: { class: 'theme-date', label: 'Date', icon: '📅' },
+    generic: { class: 'theme-generic', label: 'Calculator', icon: '🧮' }
+  };
+
+  function getToolTheme(slug, path) {
+    var family = normalizeFamily(slug, slug, path) || detectCalculatorType(slug, path) || 'generic';
+    return PAGE_THEME_MAP[family] || PAGE_THEME_MAP.generic;
+  }
+
+  function createAssistantPanel() {
+    if (qs('.utility-panel')) return;
+    var panel = document.createElement('div');
+    panel.className = 'utility-panel';
+    panel.innerHTML = '<button type="button" id="recentToolsToggle">Recently viewed</button>' +
+      '<button type="button" id="favoriteToolsToggle">Saved calculators</button>' +
+      '<div class="utility-menu" id="utilityMenu"></div>';
+    var header = qs('.site-header') || qs('.header-row') || document.body;
+    if (header) header.appendChild(panel);
+    qs('#recentToolsToggle').addEventListener('click', function () { renderUtilityMenu('recent'); });
+    qs('#favoriteToolsToggle').addEventListener('click', function () { renderUtilityMenu('favorites'); });
+  }
+
+  function trackedTools(key) {
+    try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { return []; }
+  }
+  function storeTools(key, items) { localStorage.setItem(key, JSON.stringify(items.slice(0, 12))); }
+  function addRecentTool(tool) {
+    if (!tool || !tool.slug) return;
+    var list = trackedTools('cv_recent_tools');
+    list = list.filter(function (entry) { return entry.slug !== tool.slug; });
+    list.unshift(tool);
+    storeTools('cv_recent_tools', list);
+  }
+  function toggleFavoriteTool(tool) {
+    var list = trackedTools('cv_favorite_tools');
+    if (!tool || !tool.slug) return;
+    var existing = list.find(function (entry) { return entry.slug === tool.slug; });
+    if (existing) list = list.filter(function (entry) { return entry.slug !== tool.slug; });
+    else list.unshift(tool);
+    storeTools('cv_favorite_tools', list);
+    return !existing;
+  }
+
+  function renderUtilityMenu(type) {
+    var box = qs('#utilityMenu');
+    if (!box) return;
+    var tools = type === 'favorites' ? trackedTools('cv_favorite_tools') : trackedTools('cv_recent_tools');
+    if (!tools.length) {
+      box.innerHTML = '<div class="empty-state">No ' + (type === 'favorites' ? 'favorite' : 'recent') + ' calculators yet.</div>';
+      return;
+    }
+    box.innerHTML = tools.map(function (item) {
+      return '<a href="' + item.url + '">' + item.name + '<small>' + (item.category || 'Calculator') + '</small></a>';
+    }).join('');
+  }
+
+  function updateFavoriteButton(slug, name, url, button) {
+    var list = trackedTools('cv_favorite_tools');
+    var active = list.some(function (item) { return item.slug === slug; });
+    if (!button) return active;
+    button.classList.toggle('active', active);
+    button.textContent = active ? 'Unsave calculator' : 'Save calculator';
+    return active;
+  }
+
+  function decoratePage() {
+    var pageType = inferPageType();
+    document.body.dataset.pageType = pageType;
+    var theme = getToolTheme(location.pathname.split('/').filter(Boolean).pop() || '', location.pathname);
+    document.body.classList.add(theme.class);
+    var title = qs('.section-head h1');
+    if (title) {
+      var badge = document.createElement('span');
+      badge.className = 'page-icon';
+      badge.setAttribute('aria-hidden', 'true');
+      badge.textContent = theme.icon;
+      title.insertBefore(badge, title.firstChild);
+      var label = document.createElement('span');
+      label.className = 'page-badge';
+      label.textContent = theme.label;
+      title.appendChild(label);
+    }
+    createAssistantPanel();
+  }
+
+  function searchPageReady() {
+    return location.pathname.toLowerCase().endsWith('/search.html');
+  }
+
+  fillCategoryJump();
+  if (searchPageReady()) renderSearchResults();
+  decoratePage();
+
   function factorial(n) {
     n = Math.floor(Number(n));
     if (!isFinite(n) || n < 0) return NaN;
@@ -346,8 +500,10 @@
     if (/emi|loan|mortgage/.test(slug)) {
       var P = num(data, ['loan_amount', 'amount', 'principal', 'loan'], 1000000);
       var annual = num(data, ['interest_rate', 'rate'], 9);
-      var tenure = num(data, ['tenure', 'duration', 'time_period', 'years', 'months'], 20);
-      var months = tenure > 60 ? tenure : tenure * 12;
+      var tenure = num(data, ['tenure', 'duration', 'time_period', 'years'], 20);
+      var explicitMonths = num(data, ['months', 'term_months', 'tenure_months'], NaN);
+      var months = isFinite(explicitMonths) && explicitMonths > 0 ? Math.round(explicitMonths) : Math.round(tenure <= 30 ? tenure * 12 : tenure);
+      months = months || 12;
       var feePct = num(data, ['processing_fee', 'fee'], 0);
       var r = annual / 12 / 100;
       var emi = r ? (P * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1) : P / months;
@@ -534,6 +690,7 @@
     var weight = num(data, ['weight'], 70);
     var heightCm = num(data, ['height'], 175);
     var heightM = heightCm / 100;
+    var gender = str(data, ['gender', 'sex'], 'male').toLowerCase();
 
     if (/bmi/.test(slug)) {
       var bmi = weight / (heightM * heightM);
@@ -546,12 +703,13 @@
       return { primary: 'Estimated body fat: ' + fmt(bodyFat) + '%', sub: 'BMI and age based estimate.', rows: [['BMI', bmi2], ['Age', age], ['Body fat %', bodyFat]] };
     }
     if (/bmr/.test(slug)) {
-      var bmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
-      return { primary: 'BMR: ' + fmt(bmr) + ' kcal/day', sub: 'Estimated basal metabolic rate.', rows: [['Age', age], ['Weight', weight], ['Height', heightCm], ['BMR', bmr]] };
+      var bmrBase = 10 * weight + 6.25 * heightCm - 5 * age;
+      var bmr = bmrBase + (gender === 'female' ? -161 : 5);
+      return { primary: 'BMR: ' + fmt(bmr) + ' kcal/day', sub: 'Estimated basal metabolic rate.', rows: [['Age', age], ['Weight', weight], ['Height', heightCm], ['Gender', gender], ['BMR', bmr]] };
     }
     if (/tdee|calorie/.test(slug)) {
       var activity = num(data, ['activity'], 1.55);
-      var baseBmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
+      var baseBmr = 10 * weight + 6.25 * heightCm - 5 * age + (gender === 'female' ? -161 : 5);
       var calories = baseBmr * activity;
       return { primary: 'Maintenance calories: ' + fmt(calories), sub: 'Daily energy estimate from BMR × activity.', rows: [['BMR', baseBmr], ['Activity factor', activity], ['Calories/day', calories]] };
     }
@@ -1055,12 +1213,29 @@
       });
     }
 
+    var favoriteButton = document.createElement('button');
+    favoriteButton.type = 'button';
+    favoriteButton.className = 'button favorite-button';
+    favoriteButton.setAttribute('data-action', 'favorite');
+    favoriteButton.setAttribute('aria-pressed', 'false');
+    favoriteButton.textContent = 'Save calculator';
+    var actionRow = qs('.button-row', layout) || form;
+    if (actionRow) actionRow.appendChild(favoriteButton);
+    var titleNode = qs('.section-head h1');
+    var toolMeta = { slug: slug, name: document.title || (titleNode && titleNode.textContent) || slug, url: location.pathname, category: getToolTheme(slug, location.pathname).label };
+    updateFavoriteButton(slug, toolMeta.name, toolMeta.url, favoriteButton);
+    favoriteButton.addEventListener('click', function () {
+      var active = toggleFavoriteTool(toolMeta);
+      updateFavoriteButton(slug, toolMeta.name, toolMeta.url, favoriteButton);
+    });
+
     var params = new URLSearchParams(location.search);
     params.forEach(function (v, k) {
       var input = form.querySelector('[name="' + k + '"], [name="' + k.replace(/_/g, '-') + '"]');
       if (input) input.value = v;
     });
     if (params.toString()) run();
+    addRecentTool(toolMeta);
   });
 
   function inferPageType() {
@@ -1074,32 +1249,66 @@
 
   function injectSchema() {
     if (document.getElementById('site-schema')) return;
-    var siteName = document.querySelector('meta[property="og:site_name"]') || document.querySelector('meta[name="application-name"]');
     var description = document.querySelector('meta[name="description"]');
-    var schema = [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: document.title || 'Calculator Hub',
-        url: location.origin + location.pathname,
-        description: description ? description.getAttribute('content') : '',
-        inLanguage: 'en',
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: location.origin + '/?q={search_term_string}',
-          'query-input': 'required name=search_term_string'
-        }
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: document.title || 'Calculator Hub',
-        description: description ? description.getAttribute('content') : '',
-        inLanguage: 'en',
-        isPartOf: { '@id': location.origin + '/#website' },
-        about: { '@type': 'Thing', name: inferPageType() }
+    var schema = [];
+    schema.push({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Calculator Pro AI',
+      url: location.origin + '/',
+      description: description ? description.getAttribute('content') : 'A searchable collection of AI-enhanced calculators for finance, health, science, and everyday planning.',
+      inLanguage: 'en',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: location.origin + '/search.html?q={search_term_string}',
+        'query-input': 'required name=search_term_string'
       }
-    ];
+    });
+    schema.push({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: document.title || 'Calculator Pro AI',
+      url: location.origin + location.pathname,
+      description: description ? description.getAttribute('content') : 'AI-assisted calculator page.',
+      inLanguage: 'en',
+      isPartOf: { '@id': location.origin + '/#website' },
+      about: { '@type': 'Thing', name: inferPageType() }
+    });
+
+    var breadcrumbs = qsa('.breadcrumbs a').map(function (link, index) {
+      return { '@type': 'ListItem', position: index + 1, name: link.textContent.trim(), item: location.origin + link.getAttribute('href') };
+    });
+    if (breadcrumbs.length) {
+      schema.push({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs
+      });
+    }
+
+    var faqItems = qsa('details .faq-question, details h3, details summary').map(function (item) {
+      var question = item.textContent.trim();
+      var answer = '';
+      var panel = item.closest('details');
+      if (panel) {
+        var body = panel.querySelector('p');
+        answer = body ? body.textContent.trim() : '';
+      }
+      return { question: question, answer: answer };
+    }).filter(function (item) { return item.question && item.answer; });
+    if (faqItems.length) {
+      schema.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map(function (item) {
+          return {
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: { '@type': 'Answer', 'text': item.answer }
+          };
+        })
+      });
+    }
 
     var script = document.createElement('script');
     script.id = 'site-schema';

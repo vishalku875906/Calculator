@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mortgage Pro Calculator — Amortization, Charts & Export | Calculator Pro</title>
+    <meta name="description" content="Mortgage Pro Calculator with amortization schedule, interest breakdown, export CSV and printable results. Mobile-friendly and SEO optimized.">
+    <link rel="canonical" href="https://calculatorproai.com/calculators/mortgage-calculator-pro.html">
+    <meta property="og:title" content="Mortgage Pro Calculator — Calculator Pro">
+    <meta property="og:description" content="Interactive mortgage calculator with amortization schedule and export options.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://calculatorproai.com/calculators/mortgage-calculator-pro.html">
+
+    <link rel="stylesheet" href="/assets/pro-calc.css">
+    <script defer src="/assets/pro-calc.js"></script>
+
+    <link rel="stylesheet" href="/assets/paywall.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXX');
+    </script>
+
+    <link rel="alternate" hreflang="en" href="https://calculatorproai.com/calculators/mortgage-calculator-pro.html" />
+    <link rel="alternate" hreflang="hi" href="https://calculatorproai.com/hi/calculators/mortgage-calculator-pro.html" />
+    <link rel="alternate" hreflang="x-default" href="https://calculatorproai.com/calculators/mortgage-calculator-pro.html" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Mortgage Pro Calculator",
+      "description": "Interactive mortgage calculator with amortization schedule, charts and export.",
+      "url": "https://calculatorproai.com/calculators/mortgage-calculator-pro.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to calculate monthly mortgage payment?",
+          "acceptedAnswer": {"@type": "Answer","text": "Monthly payment = P * r / (1 - (1+r)^-n) where r is monthly rate and n is number of payments."}
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export the amortization schedule?",
+          "acceptedAnswer": {"@type": "Answer","text": "Yes — use the Export CSV button to download the amortization table."}
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+  <header class="pro-header">
+    <a href="/" class="brand">Calculator Pro</a>
+    <nav><a href="/">Home</a> · <a href="/#popular">Popular</a></nav>
+  </header>
+
+  <main class="pro-container">
+    <h1>Mortgage Pro Calculator</h1>
+    <p class="lede">Calculate monthly payments, view amortization schedule, and export results.</p>
+    <div class="paywall-banner pro-requirement" style="display:none">
+      This calculator is part of Calculator Pro. <button data-open-paywall class="button button-small">Upgrade</button>
+    </div>
+
+    <section class="calc-panel">
+      <label>Loan Amount
+        <input type="number" id="loanAmount" value="5000000" aria-label="Loan amount">
+      </label>
+      <label>Interest Rate (annual %)
+        <input type="number" id="interestRate" value="7.5" step="0.01" aria-label="Interest rate">
+      </label>
+      <label>Term (years)
+        <input type="number" id="termYears" value="20" aria-label="Term in years">
+      </label>
+
+      <div class="actions">
+        <button id="calcBtn" class="button">Calculate</button>
+        <button id="exportBtn" class="button button-outline">Export CSV</button>
+        <button id="printBtn" class="button button-outline">Print</button>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <div class="result-row">
+        <div class="label">Monthly Payment</div>
+        <div id="monthlyPayment" class="value">—</div>
+      </div>
+      <div class="result-row">
+        <div class="label">Total Payment</div>
+        <div id="totalPayment" class="value">—</div>
+      </div>
+      <div class="result-row">
+        <div class="label">Total Interest</div>
+        <div id="totalInterest" class="value">—</div>
+      </div>
+
+      <h2>Amortization Schedule</h2>
+      <div id="amortTableWrap">
+        <table id="amortTable">
+          <thead><tr><th>Month</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <article class="pro-article">
+      <h2>Overview</h2>
+      <p>This Mortgage Pro Calculator helps you estimate monthly payments for home loans, view a full amortization schedule, and understand the interest vs principal breakdown over the life of the loan. It is designed for borrowers, real-estate professionals and financial planners who need accurate and shareable schedules including CSV export and print-ready results.</p>
+
+      <h2>How it works</h2>
+      <p>The calculator uses the standard annuity formula to compute the fixed monthly payment:</p>
+      <p style="font-family:monospace;">Monthly payment = P × r / (1 − (1 + r)⁻ⁿ), where P = principal, r = monthly interest rate, n = total number of payments.</p>
+      <p>We compute each month’s interest as the current balance × monthly rate, subtract interest from payment to get principal repaid, then reduce the balance. The amortization table clearly shows these values so you can plan extra payments or compare loan options.</p>
+
+      <h2>Example</h2>
+      <p>For a ₹50,00,000 loan at 7.5% annual interest for 20 years, the calculator shows the monthly payment, total interest paid, and the month-by-month amortization. Use the Export CSV button to download the schedule and analyze it in a spreadsheet.</p>
+
+      <h2>Tips to reduce total interest</h2>
+      <ul>
+        <li>Make extra monthly or annual payments — even small amounts reduce interest and shorten the loan term.</li>
+        <li>Refinance to a lower rate if rates drop and refinancing costs are justified.</li>
+        <li>Choose shorter terms where affordable — a 15-year loan often saves substantial interest compared to a 30-year loan.</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <details><summary>Can I include extra payments?</summary><p>Yes — you can plan extra monthly payments and the amortization schedule will reflect faster principal reduction.</p></details>
+        <details><summary>Is this calculation accurate for all loan types?</summary><p>It works for fixed-rate annuity loans. For interest-only, adjustable-rate, or balloon loans consult a loan officer or use specialized calculators.</p></details>
+        <details><summary>How does CSV export work?</summary><p>CSV exports every row of the amortization table (month, payment, principal, interest, balance) for further analysis in Excel or Google Sheets.</p></details>
+      </div>
+    </article>
+  </main>
+
+  <footer class="pro-footer">© Calculator Pro</footer>
+  <div class="paywall-backdrop" role="dialog" aria-modal="true" style="display:none">
+    <div class="paywall-modal">
+      <h3>Upgrade to Calculator Pro</h3>
+      <p>Unlock advanced calculators, CSV export, charts, and pro features.</p>
+      <div class="paywall-cta">
+        <button class="button-ghost" data-close-paywall>Close</button>
+        <button class="button" data-pro-activate>Activate Pro (test)</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/paywall.js" defer></script>
+</body>
+</html>

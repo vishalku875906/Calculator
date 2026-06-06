@@ -1,0 +1,9 @@
+/* Paywall modal styles */
+.paywall-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:1200}
+.paywall-modal{background:#fff;border-radius:10px;max-width:520px;width:92%;padding:20px;box-shadow:0 10px 30px rgba(2,6,23,0.2)}
+.paywall-modal h3{margin:0 0 8px;font-size:1.2rem}
+.paywall-cta{display:flex;gap:8px;margin-top:12px}
+.button-ghost{background:#fff;border:1px solid var(--accent);color:var(--accent);padding:8px 12px;border-radius:6px}
+.paywall-banner{background:#fff3cd;border:1px solid #ffeeba;padding:10px;border-radius:6px;margin:12px 0}
+.lang-switcher{display:flex;gap:8px;align-items:center}
+.lang-switcher a{color:var(--text-secondary);text-decoration:none}

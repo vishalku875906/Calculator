@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BMI प्रो कैलकुलेटर — बॉडी मास इंडेक्स और सलाह | Calculator Pro</title>
+  <meta name="description" content="BMI प्रो कैलकुलेटर: BMI कैलकुलेट करें, श्रेणी देखें और स्वस्थ वजन सीमा जानें।">
+  <link rel="canonical" href="https://calculatorproai.com/hi/health-and-fitness/bmi-calculator-pro.html">
+  <link rel="alternate" hreflang="hi" href="https://calculatorproai.com/hi/health-and-fitness/bmi-calculator-pro.html" />
+  <link rel="alternate" hreflang="en" href="https://calculatorproai.com/health-and-fitness/bmi-calculator-pro.html" />
+  <link rel="alternate" hreflang="x-default" href="https://calculatorproai.com/health-and-fitness/bmi-calculator-pro.html" />
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+</head>
+<body>
+  <header class="pro-header"><a href="/" class="brand">Calculator Pro</a></header>
+  <main class="pro-container">
+    <h1>BMI प्रो कैलकुलेटर</h1>
+    <p class="lede">वजन और ऊँचाई डालें; यह आपके BMI, श्रेणी और स्वस्थ वजन सीमा बताएगा।</p>
+
+    <section class="calc-panel">
+      <label>वजन (kg)<input id="weight" type="number" value="70" step="0.1"></label>
+      <label>ऊँचाई (cm)<input id="height" type="number" value="170" step="0.1"></label>
+      <div class="actions">
+        <button id="calcBtn" class="button">गणना करें</button>
+        <button id="exportBtn" class="button button-outline">Export</button>
+        <button id="printBtn" class="button button-outline">प्रिंट</button>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <div class="result-row"><div class="label">BMI</div><div id="bmiValue" class="value">—</div></div>
+      <div class="result-row"><div class="label">श्रेणी</div><div id="bmiCategory" class="value">—</div></div>
+      <div class="result-row"><div class="label">स्वस्थ वजन सीमा</div><div id="weightRange" class="value">—</div></div>
+    </section>
+
+    <article class="pro-article">
+      <h2>BMI क्या है</h2>
+      <p>BMI (Body Mass Index) एक सरल मापक है: वजन (kg) / ऊँचाई (m)^2; यह सामान्य स्वास्थ्य स्क्रीनिंग के लिए उपयोगी है।</p>
+
+      <h2>कैसे समझें</h2>
+      <p>BMI 18.5 से कम है → Underweight; 18.5–24.9 → Normal; 25–29.9 → Overweight; ≥30 → Obese. यह एक प्राथमिक संकेतक है; व्यक्तिगत सलाह के लिए विशेषज्ञ से संपर्क करें।</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>क्या यह बच्चों के लिए है?</summary><p>नहीं — बच्चों और किशोरों के लिए age/sex-specific BMI percentiles की जरूरत होती है।</p></details>
+        <details><summary>क्या एथलीट का BMI गलत दिखा सकता है?</summary><p>हाँ — मांसपेशीदार एथलीट का BMI ऊँचा हो सकता है जबकि शरीर में वसा कम होता है।</p></details>
+      </div>
+    </article>
+  </main>
+  <footer class="pro-footer">© Calculator Pro</footer>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator - Calculate Monthly Loan Payment & Interest | Calculator Pro</title>
+    <meta name="description" content="Free EMI Calculator to calculate monthly EMI payment on loans. Get detailed breakdown of principal, interest and amortization schedule. Works for home loans, car loans and personal loans.">
+    <meta name="keywords" content="EMI calculator, loan EMI, monthly payment, loan calculator, home loan EMI, car loan EMI">
+    <link rel="canonical" href="https://calculatorproai.com/finance-and-money/emi-calculator.html">
+    <meta property="og:title" content="EMI Calculator - Calculate Monthly Loan Payment">
+    <meta property="og:description" content="Calculate EMI for any loan with detailed breakdown. Supports home loans, car loans, personal loans and more.">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "EMI Calculator",
+        "description": "Free EMI calculator to calculate monthly loan payment",
+        "url": "https://calculatorproai.com/finance-and-money/emi-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://calculatorproai.com"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Finance & Money",
+                    "item": "https://calculatorproai.com/finance-and-money/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "EMI Calculator",
+                    "item": "https://calculatorproai.com/finance-and-money/emi-calculator.html"
+                }
+            ]
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="/assets/styles-pro.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body data-theme="light">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-container">
+                <a href="/" class="brand">Calculator Pro</a>
+                <div class="header-search">
+                    <input type="search" id="globalSearch" placeholder="Search calculators..." autocomplete="off">
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <!-- Breadcrumbs -->
+        <div class="container" style="padding: 24px 0;">
+            <div class="breadcrumbs">
+                <a href="/">Home</a>
+                <span>→</span>
+                <a href="/finance-and-money/">Finance & Money</a>
+                <span>→</span>
+                <span>EMI Calculator</span>
+            </div>
+        </div>
+        
+        <!-- Calculator Hero -->
+        <section style="padding: 40px 0; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));">
+            <div class="container">
+                <h1 style="margin-bottom: 16px;">💰 EMI Calculator</h1>
+                <p style="font-size: 1.05rem; color: var(--text-secondary);">Calculate your monthly EMI (Equated Monthly Installment) for any loan amount. Perfect for home loans, car loans, and personal loans.</p>
+            </div>
+        </section>
+        
+        <!-- Calculator Section -->
+        <section class="section">
+            <div class="container">
+                <div class="calc-container">
+                    <!-- Input Form -->
+                    <div>
+                        <div class="card" style="padding: 28px;">
+                            <h2 style="font-size: 1.5rem; margin-bottom: 24px;">Loan Details</h2>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Loan Amount (₹)</label>
+                                <input type="number" id="loanAmount" class="form-input" value="1000000" min="0" step="10000">
+                                <input type="range" id="loanAmountSlider" style="width: 100%; margin-top: 8px;" value="1000000" min="0" max="10000000" step="10000">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Interest Rate (% p.a.)</label>
+                                <input type="number" id="interestRate" class="form-input" value="8.5" min="0" max="100" step="0.1">
+                                <input type="range" id="rateSlider" style="width: 100%; margin-top: 8px;" value="8.5" min="0" max="30" step="0.1">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Loan Period (Months)</label>
+                                <input type="number" id="loanPeriod" class="form-input" value="240" min="1" max="600" step="1">
+                                <input type="range" id="periodSlider" style="width: 100%; margin-top: 8px;" value="240" min="1" max="600">
+                            </div>
+                            
+                            <button id="calculateBtn" class="button button-primary" style="width: 100%; margin-top: 20px;">Calculate EMI</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Results -->
+                    <div>
+                        <div class="card" style="padding: 28px; background: linear-gradient(135deg, var(--primary-light), rgba(6, 182, 212, 0.05));">
+                            <h2 style="font-size: 1.5rem; margin-bottom: 24px;">Results</h2>
+                            
+                            <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid var(--border-light);">
+                                <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Monthly EMI</div>
+                                <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary);" id="emiResult">₹41,549</div>
+                            </div>
+                            
+                            <div style="display: grid; gap: 16px;">
+                                <div style="background: var(--bg-primary); padding: 16px; border-radius: var(--radius-lg);">
+                                    <div style="color: var(--text-secondary); font-size: 13px;">Total Interest Paid</div>
+                                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--danger);" id="totalInterest">₹3,971,720</div>
+                                </div>
+                                
+                                <div style="background: var(--bg-primary); padding: 16px; border-radius: var(--radius-lg);">
+                                    <div style="color: var(--text-secondary); font-size: 13px;">Total Amount Payable</div>
+                                    <div style="font-size: 1.3rem; font-weight: 700; color: var(--success);" id="totalAmount">₹4,971,720</div>
+                                </div>
+                            </div>
+                            
+                            <button id="printBtn" class="button button-secondary" style="width: 100%; margin-top: 20px;">🖨️ Print Results</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Formula & Explanation -->
+        <section class="section" style="background: var(--bg-secondary);">
+            <div class="container" style="max-width: 900px;">
+                <h2 style="margin-bottom: 32px;">How EMI Calculator Works</h2>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 16px;">EMI Formula</h3>
+                    <div style="background: var(--bg-tertiary); padding: 20px; border-radius: var(--radius-lg); margin-bottom: 16px; overflow-x: auto;">
+                        <code style="font-size: 14px;">EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)</code>
+                    </div>
+                    <p style="margin-bottom: 0;">Where:</p>
+                    <ul style="margin: 16px 0 0; margin-left: 20px; color: var(--text-secondary);">
+                        <li><strong>P</strong> = Principal loan amount</li>
+                        <li><strong>r</strong> = Monthly interest rate (annual rate / 12 / 100)</li>
+                        <li><strong>n</strong> = Number of monthly instalments</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 style="margin-bottom: 16px;">Key Concepts</h3>
+                    <div style="display: grid; gap: 16px;">
+                        <div>
+                            <h4 style="margin-bottom: 8px;">Principal Amount</h4>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">The original loan amount you borrowed from the lender.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="margin-bottom: 8px;">Interest Rate</h4>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">The annual percentage rate (APR) charged by the lender for the loan.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="margin-bottom: 8px;">EMI (Equated Monthly Installment)</h4>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">Fixed monthly payment including both principal and interest components.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="margin-bottom: 8px;">Total Interest</h4>
+                            <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">Total interest paid over the loan period. Calculated as (EMI × n) - Principal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Use Cases -->
+        <section class="section">
+            <div class="container" style="max-width: 900px;">
+                <h2 style="margin-bottom: 32px;">When to Use EMI Calculator?</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <h3 style="font-size: 1.1rem;">🏠 Home Loans</h3>
+                        <p>Calculate monthly payment for home and property loans.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="font-size: 1.1rem;">🚗 Car Loans</h3>
+                        <p>Determine EMI for vehicle financing and car loans.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="font-size: 1.1rem;">💳 Personal Loans</h3>
+                        <p>Calculate monthly installments for personal loans.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="font-size: 1.1rem;">🎓 Education Loans</h3>
+                        <p>Plan repayment for education and student loans.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ -->
+        <section class="section" style="background: var(--bg-secondary);">
+            <div class="container" style="max-width: 800px;">
+                <h2 style="margin-bottom: 32px;">Frequently Asked Questions</h2>
+                
+                <details class="card" style="cursor: pointer;">
+                    <summary style="font-weight: 600; cursor: pointer;">How is EMI calculated?</summary>
+                    <p style="margin-top: 12px;">EMI is calculated using a standard financial formula that considers the principal amount, interest rate, and loan tenure. The formula ensures equal monthly payments throughout the loan period.</p>
+                </details>
+                
+                <details class="card" style="cursor: pointer; margin-top: 12px;">
+                    <summary style="font-weight: 600; cursor: pointer;">Can I reduce my EMI?</summary>
+                    <p style="margin-top: 12px;">Yes, you can reduce EMI by either increasing the loan tenure or by paying a larger down payment to reduce the principal amount.</p>
+                </details>
+                
+                <details class="card" style="cursor: pointer; margin-top: 12px;">
+                    <summary style="font-weight: 600; cursor: pointer;">What is prepayment?</summary>
+                    <p style="margin-top: 12px;">Prepayment refers to paying part or all of your remaining loan amount before the scheduled maturity date. This helps reduce the total interest payable.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Calculator Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/assets/site.js" defer></script>
+    <script>
+        // EMI Calculator Logic
+        const loanAmount = document.getElementById('loanAmount');
+        const loanAmountSlider = document.getElementById('loanAmountSlider');
+        const interestRate = document.getElementById('interestRate');
+        const rateSlider = document.getElementById('rateSlider');
+        const loanPeriod = document.getElementById('loanPeriod');
+        const periodSlider = document.getElementById('periodSlider');
+        const emiResult = document.getElementById('emiResult');
+        const totalInterest = document.getElementById('totalInterest');
+        const totalAmount = document.getElementById('totalAmount');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const printBtn = document.getElementById('printBtn');
+        
+        // Sync inputs with sliders
+        loanAmount.addEventListener('input', () => {
+            loanAmountSlider.value = loanAmount.value;
+            calculateEMI();
+        });
+        
+        loanAmountSlider.addEventListener('input', () => {
+            loanAmount.value = loanAmountSlider.value;
+            calculateEMI();
+        });
+        
+        interestRate.addEventListener('input', () => {
+            rateSlider.value = interestRate.value;
+            calculateEMI();
+        });
+        
+        rateSlider.addEventListener('input', () => {
+            interestRate.value = rateSlider.value;
+            calculateEMI();
+        });
+        
+        loanPeriod.addEventListener('input', () => {
+            periodSlider.value = loanPeriod.value;
+            calculateEMI();
+        });
+        
+        periodSlider.addEventListener('input', () => {
+            loanPeriod.value = periodSlider.value;
+            calculateEMI();
+        });
+        
+        calculateBtn.addEventListener('click', calculateEMI);
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+        
+        function calculateEMI() {
+            const P = parseFloat(loanAmount.value) || 0;
+            const R = parseFloat(interestRate.value) || 0;
+            const N = parseFloat(loanPeriod.value) || 0;
+            
+            if (P <= 0 || R < 0 || N <= 0) {
+                emiResult.textContent = '₹0';
+                totalInterest.textContent = '₹0';
+                totalAmount.textContent = '₹0';
+                return;
+            }
+            
+            // Monthly interest rate
+            const r = R / 12 / 100;
+            
+            // EMI Formula
+            let emi;
+            if (r === 0) {
+                emi = P / N;
+            } else {
+                emi = (P * r * Math.pow(1 + r, N)) / (Math.pow(1 + r, N) - 1);
+            }
+            
+            const totalPaid = emi * N;
+            const interest = totalPaid - P;
+            
+            // Format as currency
+            emiResult.textContent = '₹' + Math.round(emi).toLocaleString('en-IN');
+            totalInterest.textContent = '₹' + Math.round(interest).toLocaleString('en-IN');
+            totalAmount.textContent = '₹' + Math.round(totalPaid).toLocaleString('en-IN');
+        }
+        
+        // Initial calculation
+        calculateEMI();
+    </script>
+</body>
+</html>

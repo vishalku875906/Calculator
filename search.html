@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search Calculators | Calculator Pro AI</title>
+  <meta name="description" content="Search the Calculator Pro AI calculator library for finance, health, math, science and category-specific tools with instant results and rich SEO content." />
+  <link rel="canonical" href="https://calculatorproai.com/search.html" />
+  <meta name="theme-color" content="#1d4ed8" />
+  <meta property="og:title" content="Search Calculators | Calculator Pro AI" />
+  <meta property="og:description" content="Search the Calculator Pro AI calculator library for finance, health, math, science and category-specific tools with instant results and rich SEO content." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calculatorproai.com/search.html" />
+  <meta property="og:image" content="https://calculatorproai.com/assets/og-card.svg" />
+  <meta property="og:site_name" content="Calculator Pro AI" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Search Calculators | Calculator Pro AI" />
+  <meta name="twitter:description" content="Search the Calculator Pro AI calculator library for finance, health, math, science and category-specific tools with instant results and rich SEO content." />
+  <meta name="twitter:image" content="https://calculatorproai.com/assets/og-card.svg" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/">Calculator Pro AI</a>
+    <form class="header-search" action="/search.html" method="get">
+      <input id="globalSearch" name="q" type="search" placeholder="Search calculators, formulas, units..." autocomplete="off" />
+      <div id="searchSuggestions" class="search-suggestions"></div>
+    </form>
+    <div class="header-actions">
+      <select id="categoryJump" aria-label="Jump to category">
+        <option value="">Categories</option>
+      </select>
+      <a class="text-link" href="/#popular">Popular</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+  <div class="container toolbar-row">
+    <div class="toolbar-chip-group">
+      <label class="inline-select">Language
+        <select id="languagePref">
+          <option>English</option>
+          <option>Hindi</option>
+          <option>Hinglish</option>
+        </select>
+      </label>
+      <label class="inline-select">Units
+        <select id="unitPref">
+          <option>Metric</option>
+          <option>Imperial</option>
+          <option>Indian</option>
+        </select>
+      </label>
+    </div>
+  </div>
+</header>
+<main class="section">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span>/</span> <span>Search</span></nav>
+    <div class="section-head"><h1>Find the right calculator instantly</h1><p>Search across the full Calculator Pro AI library and jump straight to SEO-rich, mobile-first calculator pages.</p></div>
+    <section class="search-results-section">
+      <div class="content-card search-summary" aria-live="polite">Type a term above and press Enter to show matching calculators.</div>
+      <div id="searchResults" class="tool-grid"></div>
+    </section>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h3>Calculator Pro AI</h3>
+      <p>Free online calculators with formulas, FAQs, charts, exports, and mobile-first pages.</p>
+    </div>
+    <div>
+      <h3>Quick links</h3>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="footer-categories">
+      <h3>Top categories</h3>
+      <a href="/finance-and-money/">FINANCE &amp; MONEY</a><a href="/health-and-fitness/">HEALTH &amp; FITNESS</a><a href="/math/">MATH</a><a href="/geometry/">GEOMETRY</a><a href="/physics/">PHYSICS</a><a href="/chemistry/">CHEMISTRY</a>
+    </div>
+  </div>
+</footer>
+<script src="/assets/search-data.js" defer></script>
+<script src="/assets/site.js" defer></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').catch(console.error)
+  }
+</script>
+</body>
+</html>

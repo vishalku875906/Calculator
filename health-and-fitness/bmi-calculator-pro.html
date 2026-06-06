@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BMI Pro Calculator — Body Mass Index & Advice | Calculator Pro</title>
+  <meta name="description" content="BMI Pro Calculator with detailed categorization, healthy weight range, chart and print/export options.">
+  <link rel="canonical" href="https://calculatorproai.com/health-and-fitness/bmi-calculator-pro.html">
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is BMI?","acceptedAnswer":{"@type":"Answer","text":"BMI is body mass index calculated as weight(kg)/height(m)^2."}}]}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Is BMI accurate for children and teens?","acceptedAnswer":{"@type":"Answer","text":"No — children and adolescents require age- and sex-specific BMI percentiles rather than adult BMI categories."}},
+      {"@type":"Question","name":"Can athletes have high BMI but low body fat?","acceptedAnswer":{"@type":"Answer","text":"Yes — muscular athletes may have higher BMI while having low body fat. Use body composition measures for more accuracy."}}
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="/assets/paywall.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
+  <link rel="alternate" hreflang="en" href="https://calculatorproai.com/health-and-fitness/bmi-calculator-pro.html" />
+  <link rel="alternate" hreflang="hi" href="https://calculatorproai.com/hi/health-and-fitness/bmi-calculator-pro.html" />
+  <link rel="alternate" hreflang="x-default" href="https://calculatorproai.com/health-and-fitness/bmi-calculator-pro.html" />
+</head>
+<body>
+  <header class="pro-header"><a href="/" class="brand">Calculator Pro</a></header>
+  <main class="pro-container">
+    <h1>BMI Pro Calculator</h1>
+    <p class="lede">Calculate BMI, view category, and healthy weight range.</p>
+    <div class="paywall-banner pro-requirement" style="display:none">
+      BMI Pro tools are part of Calculator Pro. <button data-open-paywall class="button button-small">Upgrade</button>
+    </div>
+
+    <section class="calc-panel">
+      <label>Weight (kg)<input id="weight" type="number" value="70" step="0.1"></label>
+      <label>Height (cm)<input id="height" type="number" value="170" step="0.1"></label>
+      <div class="actions">
+        <button id="calcBtn" class="button">Calculate</button>
+        <button id="exportBtn" class="button button-outline">Export</button>
+        <button id="printBtn" class="button button-outline">Print</button>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <div class="result-row"><div class="label">BMI</div><div id="bmiValue" class="value">—</div></div>
+      <div class="result-row"><div class="label">Category</div><div id="bmiCategory" class="value">—</div></div>
+      <div class="result-row"><div class="label">Healthy Weight Range</div><div id="weightRange" class="value">—</div></div>
+    </section>
+    
+    <article class="pro-article">
+      <h2>What is BMI and why it matters</h2>
+      <p>Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify underweight, normal weight, overweight, and obesity. It is widely used in population studies and clinical screening because it provides a quick estimate of body fat for most adults.</p>
+
+      <h2>How BMI is calculated</h2>
+      <p>BMI = weight (kg) / (height (m))². While BMI is a useful screening tool, it does not measure body fat directly and may misclassify very muscular individuals or people with atypical body composition.</p>
+
+      <h2>Interpreting results</h2>
+      <p>Use the category readout to determine whether you fall into underweight, normal, overweight, or obese ranges. For clinical advice or personalized recommendations consult a healthcare professional; this tool provides educational guidance only.</p>
+
+      <h2>Tips for healthy weight</h2>
+      <ul>
+        <li>Combine regular physical activity with balanced nutrition.</li>
+        <li>Track progress — small, consistent changes lead to long-term results.</li>
+        <li>Consult professionals for personalized plans, especially if you have underlying health conditions.</li>
+      </ul>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>Is BMI accurate for children and teens?</summary><p>No — children and adolescents require age- and sex-specific BMI percentiles rather than the adult BMI categories used here.</p></details>
+        <details><summary>Can athletes have high BMI but low body fat?</summary><p>Yes — muscular athletes may have a higher BMI while having low body fat. Use body composition measures for more accuracy.</p></details>
+      </div>
+    </article>
+  </main>
+  <footer class="pro-footer">© Calculator Pro</footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded',()=>{
+    const $=id=>document.getElementById(id)
+    function calc(){
+      const w=parseFloat($('weight').value)||0
+      const h=(parseFloat($('height').value)||0)/100
+      if(h<=0){alert('Enter valid height');return}
+      const bmi = w/(h*h)
+      $('bmiValue').textContent = bmi.toFixed(1)
+      let cat=''
+      if(bmi<18.5) cat='Underweight'
+      else if(bmi<25) cat='Normal (healthy)'
+      else if(bmi<30) cat='Overweight'
+      else cat='Obese'
+      $('bmiCategory').textContent = cat
+      const minW = (18.5*(h*h)).toFixed(1)
+      const maxW = (24.9*(h*h)).toFixed(1)
+      $('weightRange').textContent = `${minW}kg — ${maxW}kg`
+    }
+    $('calcBtn').addEventListener('click',calc)
+    $('exportBtn').addEventListener('click',()=>{const data = `BMI,Category,WeightRange\n${$('bmiValue').textContent},${$('bmiCategory').textContent},${$('weightRange').textContent}`; const blob=new Blob([data],{type:'text/csv'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='bmi-result.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url)})
+    $('printBtn').addEventListener('click',()=>window.print())
+    calc()
+  })
+  </script>
+  <div class="paywall-backdrop" role="dialog" aria-modal="true" style="display:none">
+    <div class="paywall-modal">
+      <h3>Upgrade to Calculator Pro</h3>
+      <p>Unlock advanced calculators, CSV export, charts, and pro features.</p>
+      <div class="paywall-cta">
+        <button class="button-ghost" data-close-paywall>Close</button>
+        <button class="button" data-pro-activate>Activate Pro (test)</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/paywall.js" defer></script>
+</body>
+</html>

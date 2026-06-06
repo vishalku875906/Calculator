@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login — Calculator Pro</title>
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+  <link rel="stylesheet" href="/assets/paywall.css">
+</head>
+<body>
+  <main style="max-width:520px;margin:40px auto;padding:20px">
+    <h1>Sign In / Activate Pro (Test)</h1>
+    <p>This page is a lightweight stub for local testing. Use the button below to simulate activation of Pro for your browser (localStorage).</p>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button id="activate" class="button">Activate Pro (test)</button>
+      <button id="logout" class="button button-ghost">Clear Pro</button>
+    </div>
+  </main>
+  <script>
+    document.getElementById('activate').addEventListener('click', ()=>{localStorage.setItem('calculatorPro_isPro','1'); alert('Pro enabled (local test).');});
+    document.getElementById('logout').addEventListener('click', ()=>{localStorage.removeItem('calculatorPro_isPro'); alert('Pro cleared.');});
+  </script>
+</body>
+</html>

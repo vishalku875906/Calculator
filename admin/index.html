@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Panel — Calculator Pro</title>
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+  <link rel="stylesheet" href="/assets/paywall.css">
+  <style>body{padding:20px;background:#f4f7fb}main{max-width:980px;margin:0 auto} .panel{background:#fff;padding:20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.08);margin-bottom:20px}textarea{font-family:Menlo,monospace;line-height:1.5} .status{margin-top:12px;font-size:.95rem;color:#333}</style>
+</head>
+<body>
+  <main>
+    <h1>Admin Panel</h1>
+    <p class="lede">This admin panel can manage JSON config, regenerate sitemaps, and work with the local admin server or static files.</p>
+
+    <section class="panel">
+      <h2>Admin server</h2>
+      <label for="serverUrl">Server URL</label>
+      <input id="serverUrl" type="url" value="http://localhost:4000" style="padding:10px;width:100%;max-width:420px;margin:8px 0 12px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button id="serverStatus" class="button button-outline">Check Server</button>
+        <button id="loadFromServer" class="button button-outline">Load from Server</button>
+        <button id="regenServer" class="button button-outline">Regenerate Sitemaps via Server</button>
+      </div>
+      <div id="serverMessage" class="status">Server requests will use the current URL. Leave blank to work with static files.</div>
+    </section>
+
+    <section class="panel">
+      <h2>Admin access</h2>
+      <input id="adminUser" type="text" placeholder="Username" style="padding:10px;width:100%;max-width:320px;margin-bottom:8px">
+      <input id="adminPass" type="password" placeholder="Password" style="padding:10px;width:100%;max-width:320px;margin-bottom:12px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button id="loginBtn" class="button">Login</button>
+        <button id="logoutBtn" class="button button-outline" style="display:none">Logout</button>
+      </div>
+      <div id="authMessage" class="status">Use your admin credentials to unlock server actions.</div>
+      <div id="adminControls" style="display:none;margin-top:16px">
+        <div>Local Pro status: <strong id="proStatus">unknown</strong></div>
+        <button id="togglePro" class="button">Toggle Pro</button>
+        <button id="clearPro" class="button button-outline">Clear Local Pro</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Pages JSON</h2>
+      <textarea id="pagesJson" rows="10"></textarea>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <button id="loadPages" class="button button-outline">Load from /data/pages.json</button>
+        <button id="savePages" class="button">Export JSON</button>
+        <button id="savePagesServer" class="button button-outline">Save to Server</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Site config</h2>
+      <textarea id="siteConfig" rows="8"></textarea>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <button id="loadConfig" class="button button-outline">Load from /data/site-config.json</button>
+        <button id="exportConfig" class="button">Export Config</button>
+        <button id="saveConfigServer" class="button button-outline">Save to Server</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Instructions</h2>
+      <ul>
+        <li>Open this page from the repo root or via the admin server.</li>
+        <li>Use the admin username/password <strong>admin/admin</strong> for testing.</li>
+        <li>When running <code>admin-server</code>, save JSON directly to the server.</li>
+        <li>If editing files directly, run <code>npm run sitemap:regen</code> after updates.</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+    const serverUrlInput = document.getElementById('serverUrl')
+    const serverMsg = document.getElementById('serverMessage')
+    const adminUserInput = document.getElementById('adminUser')
+    const adminPassInput = document.getElementById('adminPass')
+    const authMessage = document.getElementById('authMessage')
+    const adminControls = document.getElementById('adminControls')
+    const proStatus = document.getElementById('proStatus')
+
+    function baseUrl() {
+      return serverUrlInput.value.replace(/\/$/, '')
+    }
+
+    async function apiFetch(path, options) {
+      const url = `${baseUrl()}${path}`
+      const opts = options || {}
+      opts.headers = opts.headers || {}
+      opts.credentials = 'include'
+      const res = await fetch(url, opts)
+      if (!res.ok) throw new Error(await res.text())
+      return res.json()
+    }
+
+    document.getElementById('serverStatus').addEventListener('click', async () => {
+      try {
+        const result = await apiFetch('/status')
+        serverMsg.textContent = `Server OK — ${JSON.stringify(result)}`
+      } catch (err) {
+        serverMsg.textContent = `Server error: ${err.message}`
+      }
+    })
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const username = document.getElementById('adminUser').value.trim()
+      const password = document.getElementById('adminPass').value
+      if (!username || !password) {
+        authMessage.textContent = 'Username and password are required.'
+        return
+      }
+
+      try {
+        await fetch(`${baseUrl()}/login`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        })
+        authMessage.textContent = 'Login successful.'
+        document.getElementById('loginBtn').style.display = 'none'
+        document.getElementById('logoutBtn').style.display = 'inline-block'
+        adminControls.style.display = 'block'
+        proStatus.textContent = localStorage.getItem('calculatorPro_isPro') ? 'enabled' : 'disabled'
+      } catch (err) {
+        authMessage.textContent = `Login failed: ${err.message}`
+      }
+    })
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      try {
+        await fetch(`${baseUrl()}/logout`, { method: 'POST', credentials: 'include' })
+        authMessage.textContent = 'Logged out.'
+        document.getElementById('loginBtn').style.display = 'inline-block'
+        document.getElementById('logoutBtn').style.display = 'none'
+        adminControls.style.display = 'none'
+      } catch (err) {
+        authMessage.textContent = `Logout failed: ${err.message}`
+      }
+    })
+
+    document.getElementById('loadFromServer').addEventListener('click', async () => {
+      try {
+        const pages = await apiFetch('/pages')
+        const config = await apiFetch('/config')
+        document.getElementById('pagesJson').value = JSON.stringify(pages, null, 2)
+        document.getElementById('siteConfig').value = JSON.stringify(config, null, 2)
+        serverMsg.textContent = 'Loaded pages and config from server.'
+      } catch (err) {
+        serverMsg.textContent = `Load failed: ${err.message}`
+      }
+    })
+
+    document.getElementById('regenServer').addEventListener('click', async () => {
+      try {
+        const result = await apiFetch('/regen-sitemaps', { method: 'POST' })
+        serverMsg.textContent = `Sitemaps regenerated: ${JSON.stringify(result)}`
+      } catch (err) {
+        serverMsg.textContent = `Sitemap regen failed: ${err.message}`
+      }
+    })
+
+    document.getElementById('togglePro').addEventListener('click', () => {
+      if (localStorage.getItem('calculatorPro_isPro')) {
+        localStorage.removeItem('calculatorPro_isPro')
+        proStatus.textContent = 'disabled'
+      } else {
+        localStorage.setItem('calculatorPro_isPro', '1')
+        proStatus.textContent = 'enabled'
+      }
+    })
+
+    document.getElementById('clearPro').addEventListener('click', () => {
+      localStorage.removeItem('calculatorPro_isPro')
+      proStatus.textContent = 'disabled'
+    })
+
+    document.getElementById('loadPages').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/data/pages.json')
+        const txt = await res.text()
+        document.getElementById('pagesJson').value = txt
+      } catch {
+        alert('Cannot load /data/pages.json. Serve this repo or open the file manually.')
+      }
+    })
+
+    document.getElementById('savePages').addEventListener('click', () => {
+      const data = document.getElementById('pagesJson').value
+      const blob = new Blob([data], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'pages.json'
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(url)
+    })
+
+    document.getElementById('savePagesServer').addEventListener('click', async () => {
+      try {
+        const pages = JSON.parse(document.getElementById('pagesJson').value)
+        await apiFetch('/update-pages', { method: 'POST', body: JSON.stringify({ pages }) })
+        serverMsg.textContent = 'Pages saved to server.'
+      } catch (err) {
+        serverMsg.textContent = `Save failed: ${err.message}`
+      }
+    })
+
+    document.getElementById('loadConfig').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/data/site-config.json')
+        const txt = await res.text()
+        document.getElementById('siteConfig').value = txt
+      } catch {
+        alert('Cannot load /data/site-config.json.')
+      }
+    })
+
+    document.getElementById('exportConfig').addEventListener('click', () => {
+      const data = document.getElementById('siteConfig').value
+      const blob = new Blob([data], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'site-config.json'
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(url)
+    })
+
+    document.getElementById('saveConfigServer').addEventListener('click', async () => {
+      try {
+        const config = JSON.parse(document.getElementById('siteConfig').value)
+        await apiFetch('/update-config', { method: 'POST', body: JSON.stringify({ config }) })
+        serverMsg.textContent = 'Config saved to server.'
+      } catch (err) {
+        serverMsg.textContent = `Save failed: ${err.message}`
+      }
+    })
+  </script>
+</body>
+</html>

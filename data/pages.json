@@ -1,0 +1,6 @@
+[
+  { "loc": "/", "changefreq": "daily", "priority": 1.0 },
+  { "loc": "/calculators/mortgage-calculator-pro.html", "changefreq": "weekly", "priority": 0.9 },
+  { "loc": "/finance-and-money/emi-calculator-pro.html", "changefreq": "weekly", "priority": 0.9 },
+  { "loc": "/health-and-fitness/bmi-calculator-pro.html", "changefreq": "weekly", "priority": 0.8 }
+]

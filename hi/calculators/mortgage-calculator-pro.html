@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>मोर्गेज प्रो कैलकुलेटर — EMI, अमोर्टाइज़ेशन और निर्यात | Calculator Pro</title>
+  <meta name="description" content="मोर्गेज प्रो कैलकुलेटर: मासिक किस्त, अमोर्टाइज़ेशन शेड्यूल और CSV निर्यात।">
+  <link rel="canonical" href="https://calculatorproai.com/hi/calculators/mortgage-calculator-pro.html">
+  <link rel="alternate" hreflang="hi" href="https://calculatorproai.com/hi/calculators/mortgage-calculator-pro.html" />
+  <link rel="alternate" hreflang="en" href="https://calculatorproai.com/calculators/mortgage-calculator-pro.html" />
+  <link rel="alternate" hreflang="x-default" href="https://calculatorproai.com/calculators/mortgage-calculator-pro.html" />
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+  <script defer src="/assets/pro-calc.js"></script>
+</head>
+<body>
+  <header class="pro-header"><a href="/" class="brand">Calculator Pro</a></header>
+  <main class="pro-container">
+    <h1>मोर्गेज प्रो कैलकुलेटर</h1>
+    <p class="lede">इस टूल से आप होम लोन की मासिक किस्त (EMI), कुल ब्याज और पूरा अमोर्टाइज़ेशन शेड्यूल देख सकते हैं। परिणाम CSV में export करें या प्रिंट कर लें।</p>
+
+    <section class="calc-panel">
+      <label>ऋण राशि (₹)
+        <input type="number" id="loanAmount" value="5000000" aria-label="ऋण राशि">
+      </label>
+      <label>वार्षिक ब्याज दर (%)
+        <input type="number" id="interestRate" value="7.5" step="0.01" aria-label="ब्याज दर">
+      </label>
+      <label>अवधि (वर्ष)
+        <input type="number" id="termYears" value="20" aria-label="अवधि">
+      </label>
+
+      <div class="actions">
+        <button id="calcBtn" class="button">गणना करें</button>
+        <button id="exportBtn" class="button button-outline">CSV एक्सपोर्ट</button>
+        <button id="printBtn" class="button button-outline">प्रिंट</button>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <div class="result-row">
+        <div class="label">मासिक किस्त</div>
+        <div id="monthlyPayment" class="value">—</div>
+      </div>
+      <div class="result-row">
+        <div class="label">कुल भुगतान</div>
+        <div id="totalPayment" class="value">—</div>
+      </div>
+      <div class="result-row">
+        <div class="label">कुल ब्याज</div>
+        <div id="totalInterest" class="value">—</div>
+      </div>
+
+      <h2>अमोर्टाइज़ेशन शेड्यूल</h2>
+      <div id="amortTableWrap">
+        <table id="amortTable">
+          <thead><tr><th>माह</th><th>किस्त</th><th>प्रिंसिपल</th><th>ब्याज</th><th>बैलेंस</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <article class="pro-article">
+      <h2>ओवरव्यू</h2>
+      <p>यह मोर्गेज प्रो कैलकुलेटर आपको आपके होम लोन की सटीक मासिक किस्त और ब्याज वितरण दिखाता है। आप अतिरिक्त मासिक भुगतान जोड़कर कर्ज की अवधी कम कर सकते हैं और कुल ब्याज बचत देख सकते हैं।</p>
+
+      <h2>कैसे काम करता है</h2>
+      <p>हम मानक एन्नुइटी फॉर्मूला का उपयोग करते हैं: <span style="font-family:monospace">EMI = P × r / (1 − (1 + r)⁻ⁿ)</span>, जहाँ P = प्रिंसिपल, r = मासिक ब्याज दर, n = कुल किस्तें।</p>
+
+      <h2>उदाहरण</h2>
+      <p>₹50,00,000 पर 7.5% सालाना और 20 साल की अवधि के लिए आप मासिक किस्त, कुल ब्याज और मासिक अमोर्टाइज़ेशन शेड्यूल देख सकते हैं।</p>
+
+      <h2>टिप्स</h2>
+      <ul>
+        <li>अतिरिक्त भुगतान करें — इससे ब्याज कम होता है और लोन जल्दी चुकता है।</li>
+        <li>यदि ब्याज दरें कम हों तो रिफाइनेंस करने पर विचार करें।</li>
+      </ul>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>क्या मैं अतिरिक्त भुगतान जोड़ सकता हूँ?</summary><p>हाँ — अतिरिक्त भुगतान डालने से प्रिंसिपल जल्दी घटेगा और ब्याज कम होगा।</p></details>
+        <details><summary>क्या यह सभी लोन प्रकारों के लिए सटीक है?</summary><p>यह फिक्स्ड-रेट एन्नुइटी लोन के लिए है। अन्य प्रकार के लोन (ARM, interest-only) के लिए अलग टूल उपयोग करें।</p></details>
+      </div>
+    </article>
+  </main>
+  <footer class="pro-footer">© Calculator Pro</footer>
+</body>
+</html>

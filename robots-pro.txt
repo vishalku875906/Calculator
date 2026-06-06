@@ -1,0 +1,48 @@
+# Robots.txt for Calculator Pro
+# This file helps search engines understand which pages to crawl and index
+
+# Allow all robots
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /temp/
+Disallow: /test/
+Disallow: /*.json
+Disallow: /*.xml.gz
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SurveyBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://calculatorproai.com/sitemap.xml
+
+# Request timeout
+Request-rate: /: 30/60
+
+# Comment: This robots.txt allows search engines to crawl and index
+# most of the website while protecting sensitive areas

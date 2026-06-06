@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EMI प्रो कैलकुलेटर — अतिरिक्त भुगतान और अमोर्टाइज़ेशन | Calculator Pro</title>
+  <meta name="description" content="EMI प्रो कैलकुलेटर: अतिरिक्त मासिक भुगतान, अमोर्टाइज़ेशन तालिका और CSV एक्सपोर्ट।">
+  <link rel="canonical" href="https://calculatorproai.com/hi/finance-and-money/emi-calculator-pro.html">
+  <link rel="alternate" hreflang="hi" href="https://calculatorproai.com/hi/finance-and-money/emi-calculator-pro.html" />
+  <link rel="alternate" hreflang="en" href="https://calculatorproai.com/finance-and-money/emi-calculator-pro.html" />
+  <link rel="alternate" hreflang="x-default" href="https://calculatorproai.com/finance-and-money/emi-calculator-pro.html" />
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+</head>
+<body>
+  <header class="pro-header"><a href="/" class="brand">Calculator Pro</a></header>
+  <main class="pro-container">
+    <h1>EMI प्रो कैलकुलेटर</h1>
+    <p class="lede">मासिक EMI निकालें, अतिरिक्त भुगतान मॉडल करें और पूरा अमोर्टाइज़ेशन एक्सपोर्ट करें।</p>
+
+    <section class="calc-panel">
+      <label>ऋण राशि (₹)<input id="loanAmount" type="number" value="1000000"></label>
+      <label>वार्षिक ब्याज (%)<input id="interestRate" type="number" value="8"></label>
+      <label>अवधि (वर्ष)<input id="termYears" type="number" value="10"></label>
+      <label>अतिरिक्त मासिक भुगतान (वैकल्पिक)<input id="extraPayment" type="number" value="0"></label>
+      <div class="actions">
+        <button id="calcBtn" class="button">गणना करें</button>
+        <button id="exportBtn" class="button button-outline">CSV एक्सपोर्ट</button>
+        <button id="printBtn" class="button button-outline">प्रिंट</button>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <div class="result-row"><div class="label">मासिक भुगतान</div><div id="monthlyPayment" class="value">—</div></div>
+      <div class="result-row"><div class="label">कुल भुगतान</div><div id="totalPayment" class="value">—</div></div>
+      <div class="result-row"><div class="label">कुल ब्याज</div><div id="totalInterest" class="value">—</div></div>
+
+      <h2>अमोर्टाइज़ेशन शेड्यूल</h2>
+      <div id="amortTableWrap"><table id="amortTable"><thead><tr><th>माह</th><th>किस्त</th><th>प्रिंसिपल</th><th>ब्याज</th><th>बैलेंस</th></tr></thead><tbody></tbody></table></div>
+    </section>
+
+    <article class="pro-article">
+      <h2>EMI Pro क्या है</h2>
+      <p>यह टूल आपको EMI के साथ-साथ अतिरिक्त भुगतान के प्रभाव को समझने में मदद करता है — इससे आप यह देख पाएँगे कि आपकी लागत और अवधि कैसे प्रभावित होगी।</p>
+
+      <h2>उदाहरण</h2>
+      <p>₹10,00,000 पर 8% और 10 साल की अवधि के साथ, बेसलाइन EMI और कुल ब्याज दिखाएँगे; यदि आप हर महीने ₹2,000 अतिरिक्त दें तो बचत कितनी होगी यह भी दिखेगा।</p>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>क्या अतिरिक्त भुगतान हमेशा लोन कम कर देगा?</summary><p>हाँ, अतिरिक्त भुगतान से प्रिंसिपल घटेगा और ब्याज कम होगा; पर अपने loan agreement में prepayment penalty देखें।</p></details>
+        <details><summary>क्या यह वेरिएबल रेटस संभालता है?</summary><p>नहीं, यह टूल फिक्स्ड रेट के लिए है।</p></details>
+      </div>
+    </article>
+  </main>
+  <footer class="pro-footer">© Calculator Pro</footer>
+</body>
+</html>

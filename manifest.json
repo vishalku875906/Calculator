@@ -1,0 +1,16 @@
+{
+  "name": "Calculator Pro AI",
+  "short_name": "Calc Pro AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "description": "Free online calculators for finance, health, math, science, and more.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

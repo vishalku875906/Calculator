@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EMI Pro Calculator — Extra Payments & Amortization | Calculator Pro</title>
+  <meta name="description" content="EMI Pro Calculator with extra payment options, amortization schedule, chart and CSV export.">
+  <link rel="canonical" href="https://calculatorproai.com/finance-and-money/emi-calculator-pro.html">
+  <link rel="stylesheet" href="/assets/pro-calc.css">
+  <script defer src="/assets/pro-calc.js"></script>
+  <link rel="stylesheet" href="/assets/paywall.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
+  <link rel="alternate" hreflang="en" href="https://calculatorproai.com/finance-and-money/emi-calculator-pro.html" />
+  <link rel="alternate" hreflang="hi" href="https://calculatorproai.com/hi/finance-and-money/emi-calculator-pro.html" />
+  <link rel="alternate" hreflang="x-default" href="https://calculatorproai.com/finance-and-money/emi-calculator-pro.html" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","name":"EMI Pro Calculator","url":"https://calculatorproai.com/finance-and-money/emi-calculator-pro.html","description":"EMI Pro Calculator with extra payment options and amortization."}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will extra payments always shorten the loan?",
+        "acceptedAnswer": {"@type":"Answer","text":"Yes — additional principal payments reduce outstanding balance and therefore future interest; check your loan agreement for prepayment penalties."}
+      },
+      {
+        "@type": "Question",
+        "name": "Does this handle variable interest rates?",
+        "acceptedAnswer": {"@type":"Answer","text":"No — this tool assumes a fixed interest rate for the modeled period. Use specialized ARM calculators for adjustable-rate mortgages."}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="pro-header"><a href="/" class="brand">Calculator Pro</a></header>
+  <main class="pro-container">
+    <h1>EMI Pro Calculator</h1>
+    <p class="lede">Monthly EMI, extra payments, and full amortization export.</p>
+    <div class="paywall-banner pro-requirement" style="display:none">
+      EMI Pro is a Calculator Pro feature. <button data-open-paywall class="button button-small">Upgrade</button>
+    </div>
+
+    <section class="calc-panel">
+      <label>Loan Amount<input id="loanAmount" type="number" value="1000000"></label>
+      <label>Annual Interest (%)<input id="interestRate" type="number" value="8"></label>
+      <label>Term (years)<input id="termYears" type="number" value="10"></label>
+      <label>Extra Monthly Payment (optional)<input id="extraPayment" type="number" value="0"></label>
+      <div class="actions">
+        <button id="calcBtn" class="button">Calculate</button>
+        <button id="exportBtn" class="button button-outline">Export CSV</button>
+        <button id="printBtn" class="button button-outline">Print</button>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <div class="result-row"><div class="label">Monthly Payment</div><div id="monthlyPayment" class="value">—</div></div>
+      <div class="result-row"><div class="label">Total Payment</div><div id="totalPayment" class="value">—</div></div>
+      <div class="result-row"><div class="label">Total Interest</div><div id="totalInterest" class="value">—</div></div>
+
+      <h2>Amortization Schedule</h2>
+      <div id="amortTableWrap"><table id="amortTable"><thead><tr><th>Month</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody></tbody></table></div>
+    </section>
+    
+    <article class="pro-article">
+      <h2>About EMI Pro</h2>
+      <p>The EMI Pro Calculator helps you plan loan repayments with precision. It supports additional monthly payments, exports amortization schedules to CSV, and provides print-friendly reports. Use it to compare different loan terms, simulate extra payments, and measure the savings from accelerated repayment.</p>
+
+      <h2>Calculation details</h2>
+      <p>The calculator uses the fixed-payment formula for amortizing loans. When you add an extra monthly payment, the calculator applies it directly to principal after each payment, which reduces future interest and shortens the term. The amortization table is recalculated to reflect these changes.</p>
+
+      <h2>Use case example</h2>
+      <p>Loan: ₹10,00,000 | Rate: 8% annual | Term: 10 years. Baseline EMI shows the monthly cost and total interest. If you add ₹2,000 extra per month, you can see the new payoff date and interest savings immediately.</p>
+
+      <h2>Best practices</h2>
+      <ul>
+        <li>Compare multiple loan amounts and terms with the same tool to find an affordable monthly payment.</li>
+        <li>Model one-time lump-sum pre-payments to see their effect on remaining balance.</li>
+        <li>Download the CSV to keep records or share with advisors.</li>
+      </ul>
+
+      <h2>FAQ</h2>
+      <div class="faq">
+        <details><summary>Will extra payments always shorten the loan?</summary><p>Yes — additional principal payments reduce outstanding balance and therefore future interest; pay attention to prepayment penalties on your loan contract.</p></details>
+        <details><summary>Does this handle variable interest rates?</summary><p>No — this tool assumes a fixed interest rate for the modeled period. For adjustable-rate loans use a dedicated ARM calculator.</p></details>
+      </div>
+    </article>
+  </main>
+  <footer class="pro-footer">© Calculator Pro</footer>
+  <div class="paywall-backdrop" role="dialog" aria-modal="true" style="display:none">
+    <div class="paywall-modal">
+      <h3>Upgrade to Calculator Pro</h3>
+      <p>Unlock advanced calculators, CSV export, charts, and pro features.</p>
+      <div class="paywall-cta">
+        <button class="button-ghost" data-close-paywall>Close</button>
+        <button class="button" data-pro-activate>Activate Pro (test)</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/paywall.js" defer></script>
+
+  <script>
+  // reuse functions from pro-calc.js by computing with extra payment
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const $ = id=>document.getElementById(id)
+    const extra = $('extraPayment')
+    const computeOrig = ()=>{
+      const P = parseFloat($('loanAmount').value)||0
+      const annual = parseFloat($('interestRate').value)||0
+      const years = parseInt($('termYears').value)||0
+      const n = years*12
+      const r = annual/100/12
+      const monthly = r===0? P/n : P * r / (1 - Math.pow(1+r, -n))
+      return {P,r,n,monthly}
+    }
+    const buildTable = (P,r,n,monthly,extraAmt)=>{
+      const tbody = document.querySelector('#amortTable tbody'); tbody.innerHTML=''
+      let balance = P
+      let m=1
+      while(balance>0 && m<=n*5){ // safety cap
+        const interest = balance*r
+        const principal = Math.min(monthly - interest + (extraAmt||0), balance)
+        const payment = principal + interest
+        balance = Math.max(0, balance - principal)
+        const tr=document.createElement('tr')
+        tr.innerHTML = `<td>${m}</td><td style="text-align:right">${payment.toFixed(2)}</td><td>${principal.toFixed(2)}</td><td>${interest.toFixed(2)}</td><td>${balance.toFixed(2)}</td>`
+        tbody.appendChild(tr)
+        m++
+        if(m>5000) break
+      }
+    }
+    function formatCurrency(v){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(v)}
+    function update(){const {P,r,n,monthly}=computeOrig(); const extraAmt=parseFloat(extra.value)||0; const totalPayment=(monthly+extraAmt)*n; const totalInterest=totalPayment-P; $('monthlyPayment').textContent=formatCurrency(monthly+extraAmt); $('totalPayment').textContent=formatCurrency(totalPayment); $('totalInterest').textContent=formatCurrency(totalInterest); buildTable(P,r,n,monthly,extraAmt)}
+    $('calcBtn').addEventListener('click',update)
+    $('exportBtn').addEventListener('click',()=>{const rows=[['Month','Payment','Principal','Interest','Balance']]; document.querySelectorAll('#amortTable tbody tr').forEach(tr=>rows.push(Array.from(tr.children).map(td=>td.textContent))); const csv=rows.map(r=>r.join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='emi-amortization.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url)});
+    $('printBtn').addEventListener('click',()=>window.print())
+    update()
+  })
+  </script>
+
+</body>
+</html>

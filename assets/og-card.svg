@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="light" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#c7d2fe" stop-opacity="0.8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="40" ry="40" fill="url(#bg)" />
+  <rect x="60" y="60" width="1080" height="510" rx="32" fill="url(#light)" opacity="0.14" />
+  <path d="M180 460 L260 350 L400 420 L540 310 L640 380 L780 240 L900 360" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+  <circle cx="180" cy="460" r="22" fill="#38bdf8" />
+  <circle cx="260" cy="350" r="22" fill="#f472b6" />
+  <circle cx="400" cy="420" r="22" fill="#34d399" />
+  <circle cx="540" cy="310" r="22" fill="#fbbf24" />
+  <circle cx="640" cy="380" r="22" fill="#a78bfa" />
+  <circle cx="780" cy="240" r="22" fill="#60a5fa" />
+  <circle cx="900" cy="360" r="22" fill="#f97316" />
+  <text x="100" y="190" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="700">Calculator Pro AI</text>
+  <text x="100" y="272" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="36">Premium calculators, SEO-first pages, and rich results.</text>
+  <text x="100" y="340" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="28">Finance · Health · Math · Science · Categories</text>
+  <text x="100" y="520" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="24">Built for fast performance, mobile users, and search visibility.</text>
+</svg>

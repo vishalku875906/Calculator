@@ -7,7 +7,7 @@ from html import escape
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SPEC = pathlib.Path('/app/incoming_files/6a2376690d15166b752fe82d/e1436f851_TXTtxt.txt')
-BASE_URL = 'https://example.com'
+BASE_URL = 'https://calculatorproai.com'
 
 CATEGORY_RE = re.compile(r'^\s*(\d+)\.\s+(.+?)\s+â€”\s+(\d+)\s+Tools\s*$')
 TOOL_RE = re.compile(r'^\s*(\d+\.\d+)\s+(.+?)\s*$')
@@ -243,7 +243,7 @@ def header_html(categories):
     return f'''
 <header class="site-header">
   <div class="container header-row">
-    <a class="brand" href="/">CalcVerse</a>
+    <a class="brand" href="/">Calculator Pro AI</a>
     <form class="header-search" action="/search/" onsubmit="return false;">
       <input id="globalSearch" type="search" placeholder="Search calculators, formulas, units..." autocomplete="off" />
       <div id="searchSuggestions" class="search-suggestions"></div>
@@ -284,7 +284,7 @@ def footer_html(categories):
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h3>CalcVerse</h3>
+      <h3>Calculator Pro AI</h3>
       <p>Free online calculators with formulas, FAQs, charts, exports, and mobile-first pages.</p>
     </div>
     <div>
@@ -399,7 +399,7 @@ def build_home(categories, tools):
     <script>window.CALC_SEARCH_DATA = {search_data};</script>
     '''
     html = page_shell(
-        'Free Online Calculators for Finance, Health, Math, Science & More | CalcVerse',
+        'Free Online Calculators for Finance, Health, Math, Science & More | Calculator Pro AI',
         'Browse 900+ free online calculators with formulas, explanations, printable result views, charts, category pages, and mobile-friendly SEO pages.',
         body,
         f'{BASE_URL}/'
@@ -426,7 +426,7 @@ def build_category_pages(categories):
         cat_dir = ROOT / category['slug']
         cat_dir.mkdir(parents=True, exist_ok=True)
         html = page_shell(
-            f"{category['name']} Calculators | CalcVerse",
+            f"{category['name']} Calculators | Calculator Pro AI",
             f"Browse {len(category['tools'])} {category['name'].lower()} calculators with formulas, explanations, and related tools.",
             body,
             f"{BASE_URL}/{category['slug']}/"
@@ -568,10 +568,10 @@ def build_tool_pages(categories):
 
 def build_support_pages(categories):
     pages = {
-        'privacy.html': ('Privacy Policy | CalcVerse', 'Privacy-first static calculator website', '<main class="section"><div class="container prose"><h1>Privacy Policy</h1><p>This website works without account signup for basic use. Theme, calculator history, and recent calculations may be stored locally in your browser for convenience. No API is required for the static version.</p></div></main>'),
-        'about.html': ('About | CalcVerse', 'About this calculator hub', '<main class="section"><div class="container prose"><h1>About CalcVerse</h1><p>CalcVerse is a fast, category-based calculator hub designed to feel simple like classic utility sites while looking more modern, mobile-first, and export-friendly.</p></div></main>'),
-        'contact.html': ('Contact | CalcVerse', 'Contact page', '<main class="section"><div class="container prose"><h1>Contact</h1><p>Replace this section with your own support email, feedback form, or contact details before deployment.</p></div></main>'),
-        'disclaimer.html': ('Disclaimer | CalcVerse', 'General disclaimer', '<main class="section"><div class="container prose"><h1>General Disclaimer</h1><p>All tools are provided for informational and educational purposes only. Verify critical outputs independently before acting on them in real-world scenarios.</p></div></main>'),
+        'privacy.html': ('Privacy Policy | Calculator Pro AI', 'Privacy-first static calculator website', '<main class="section"><div class="container prose"><h1>Privacy Policy</h1><p>This website works without account signup for basic use. Theme, calculator history, and recent calculations may be stored locally in your browser for convenience. No API is required for the static version.</p></div></main>'),
+        'about.html': ('About | Calculator Pro AI', 'About this calculator hub', '<main class="section"><div class="container prose"><h1>About Calculator Pro AI</h1><p>Calculator Pro AI is a fast, category-based calculator hub designed to feel simple like classic utility sites while looking more modern, mobile-first, and export-friendly.</p></div></main>'),
+        'contact.html': ('Contact | Calculator Pro AI', 'Contact page', '<main class="section"><div class="container prose"><h1>Contact</h1><p>Replace this section with your own support email, feedback form, or contact details before deployment.</p></div></main>'),
+        'disclaimer.html': ('Disclaimer | Calculator Pro AI', 'General disclaimer', '<main class="section"><div class="container prose"><h1>General Disclaimer</h1><p>All tools are provided for informational and educational purposes only. Verify critical outputs independently before acting on them in real-world scenarios.</p></div></main>'),
     }
     search_data = json.dumps([{'name': t['name'], 'url': f"/{t['slug']}/", 'category': c['name']} for c in categories for t in c['tools']])
     for filename, (title, description, main) in pages.items():
@@ -1057,13 +1057,13 @@ def build_sitemap(categories):
         xml.append(f'  <url><loc>{escape(url)}</loc></url>')
     xml.append('</urlset>')
     (ROOT / 'sitemap.xml').write_text('\n'.join(xml))
-    (ROOT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml\n')
+    (ROOT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://calculatorproai.com/sitemap.xml\n')
 
 
 def build_readme(categories):
     live = sum(1 for c in categories for t in c['tools'] if t['engine'])
     total = sum(len(c['tools']) for c in categories)
-    text = f'''# CalcVerse static calculator hub
+    text = f'''# Calculator Pro AI static calculator hub
 
 Generated from the attached project brief.
 

@@ -107,7 +107,43 @@ p { color: var(--muted); line-height: 1.6; }
 .disclaimer-box { border-left: 4px solid #f59e0b; }
 .search-suggestions { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); display: none; max-height: 360px; overflow: auto; }
 .search-suggestions a { display: block; padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--text); }
+.search-suggestions a:last-child { border-bottom: none; }
 .search-suggestions a small { display: block; color: var(--muted); margin-top: 4px; }
+.search-results-section { margin-top: 1.5rem; }
+.search-results-section .tool-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.search-summary { padding: 20px; font-size: 1rem; line-height: 1.6; }
+.empty-state { padding: 28px 22px; text-align: center; border: 1px dashed var(--line); border-radius: 20px; color: var(--muted); }
+.page-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; margin-right: 0.8rem; border-radius: 999px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; font-size: 0.95rem; font-weight: 700; box-shadow: 0 18px 48px rgba(37, 99, 235, 0.18); }
+.page-badge { display: inline-flex; align-items: center; gap: 0.55rem; padding: 8px 10px; border-radius: 999px; background: var(--soft); color: var(--brand); font-weight: 700; font-size: .92rem; }
+.page-badge svg { width: 1rem; height: 1rem; }
+.tool-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 16px; }
+.tool-hero .page-icon { width: 3rem; height: 3rem; font-size: 1rem; }
+.utility-panel { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 6px; color: var(--muted); }
+.utility-panel button { border: 1px solid var(--line); background: var(--card); color: var(--text); padding: 8px 12px; border-radius: 999px; cursor: pointer; }
+.utility-panel button.active { background: var(--brand); color: white; border-color: transparent; }
+.utility-menu { display: grid; gap: 8px; margin-top: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+.utility-menu a { color: var(--text); padding: 10px 12px; display: block; border-radius: 14px; background: var(--soft); }
+.favorite-button { min-width: 110px; }
+.favorite-button.active { background: rgba(16, 185, 129, 0.16); color: #065f46; }
+.theme-finance { --brand: #1d4ed8; --brand-2: #3b82f6; --soft: rgba(59, 130, 246, 0.12); }
+.theme-health { --brand: #16a34a; --brand-2: #22c55e; --soft: rgba(16, 185, 129, 0.12); }
+.theme-math { --brand: #7c3aed; --brand-2: #9333ea; --soft: rgba(147, 51, 234, 0.12); }
+.theme-physics { --brand: #4f46e5; --brand-2: #6366f1; --soft: rgba(99, 102, 241, 0.12); }
+.theme-chemistry { --brand: #0d9488; --brand-2: #14b8a6; --soft: rgba(20, 184, 166, 0.12); }
+.theme-construction { --brand: #92400e; --brand-2: #c2410c; --soft: rgba(217, 119, 6, 0.12); }
+.theme-food { --brand: #dc2626; --brand-2: #ef4444; --soft: rgba(248, 113, 113, 0.12); }
+.theme-education { --brand: #ca8a04; --brand-2: #f59e0b; --soft: rgba(245, 158, 11, 0.12); }
+.theme-automotive { --brand: #374151; --brand-2: #4b5563; --soft: rgba(148, 163, 184, 0.14); }
+.theme-converter { --brand: #0ea5e9; --brand-2: #22d3ee; --soft: rgba(14, 165, 233, 0.12); }
+.theme-date { --brand: #f97316; --brand-2: #fb923c; --soft: rgba(251, 146, 60, 0.12); }
+.theme-generic { --brand: #2563eb; --brand-2: #8b5cf6; --soft: rgba(56, 189, 248, 0.12); }
+.theme-finance .result-card, .theme-health .result-card, .theme-math .result-card, .theme-physics .result-card, .theme-chemistry .result-card, .theme-construction .result-card, .theme-food .result-card, .theme-education .result-card, .theme-automotive .result-card, .theme-converter .result-card, .theme-date .result-card { border-color: rgba(255,255,255,0.1); }
+@media (max-width: 960px) {
+  .tool-hero { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 680px) {
+  .utility-menu { width: 100%; }
+}
 .sci-toolbar, .toolbar-chip-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .sci-display-wrap { margin-bottom: 14px; }
 .sci-result { font-size: 1.6rem; font-weight: 800; margin-top: 10px; }

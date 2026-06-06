@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "node scripts/audit.js",
-    "complete": "node scripts/complete_calculators.js"
+    "complete": "node scripts/complete_calculators.js",
+    "sitemap:regen": "node tools/generate-sitemaps.js",
+    "admin:install": "npm --prefix admin-server install",
+    "admin:start": "npm --prefix admin-server install && npm --prefix admin-server start"
   },
   "repository": {
     "type": "git",

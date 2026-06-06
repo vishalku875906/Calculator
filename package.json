@@ -1,0 +1,25 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Generated from the attached project brief.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node scripts/audit.js",
+    "complete": "node scripts/complete_calculators.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digitalproject-digital/Calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/digitalproject-digital/Calculator/issues"
+  },
+  "homepage": "https://github.com/digitalproject-digital/Calculator#readme",
+  "dependencies": {
+    "jsdom": "^29.1.1"
+  }
+}
